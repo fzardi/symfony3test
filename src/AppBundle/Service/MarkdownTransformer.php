@@ -23,6 +23,7 @@ class MarkdownTransformer
         Cache $cache
     ) {
         $this->markdownParser = $markdownParser;
+        $this->cache = $cache;
     }
 
     public function parse($str)
