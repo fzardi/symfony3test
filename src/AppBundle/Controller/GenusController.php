@@ -69,7 +69,7 @@ class GenusController extends Controller
 
         return $this->render(':genus:show.html.twig', [
             'genus' => $genus,
-            'funFact' => $funFact,
+//            'funFact' => $funFact,
             'recentNoteCount' => count($recentNotes)
         ]);
     }

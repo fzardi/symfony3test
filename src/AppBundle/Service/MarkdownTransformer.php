@@ -33,7 +33,7 @@ class MarkdownTransformer
             return $this->cache->fetch($key);
         }
 
-        sleep(1); // fake how slow this could be
+//        sleep(1); // fake how slow this could be
         $str = $this->markdownParser
             ->transformMarkdown($str);
         $this->cache->save($key, $str);
