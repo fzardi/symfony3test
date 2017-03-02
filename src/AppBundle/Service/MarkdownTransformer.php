@@ -32,7 +32,7 @@ class MarkdownTransformer
         if ($this->cache->contains($key)) {
             return $this->cache->fetch($key);
         }
-
+// test
         sleep(1); // fake how slow this could be
         $str = $this->markdownParser
             ->transformMarkdown($str);
