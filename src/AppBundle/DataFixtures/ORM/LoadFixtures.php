@@ -26,15 +26,20 @@ class LoadFixtures implements FixtureInterface
     public function genus()
     {
         $genera = [
-            'Genus1',
-            'Genus2',
-            'Genus3',
-            'Genus4',
-            'Genus5',
-            'Genus6',
-            'Genus7',
-            'Genus8',
-            'Genus9'
+            'Octopus',
+            'Balaena',
+            'Orcinus',
+            'Hippocampus',
+            'Asterias',
+            'Amphiprion',
+            'Carcharodon',
+            'Aurelia',
+            'Cucumaria',
+            'Balistoides',
+            'Paralithodes',
+            'Chelonia',
+            'Trichechus',
+            'Eumetopias'
         ];
 
         $key = array_rand($genera);

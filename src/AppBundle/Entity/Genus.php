@@ -22,10 +22,6 @@ class Genus
      */
     private $name;
     /**
-     * @ORM\Column(type="string")
-     */
-    private $subFamily;
-    /**
      * @ORM\Column(type="integer")
      */
     private $speciesCount;
@@ -38,11 +34,18 @@ class Genus
      * @ORM\Column(type="boolean")
      */
     private $isPublished = true;
+
     /**
      * @ORM\OneToMany(targetEntity="GenusNote", mappedBy="genus")
      * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $notes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SubFamily")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $subFamily;
 
     public function __construct()
     {
