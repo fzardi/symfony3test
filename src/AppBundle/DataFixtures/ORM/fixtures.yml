@@ -1,6 +1,6 @@
 AppBundle\Entity\SubFamily:
     subfamily_{1..7}:
-        name: <subFamily()>
+        name: <lastName()>
 
 AppBundle\Entity\Genus:
     genus_{1..20}:
