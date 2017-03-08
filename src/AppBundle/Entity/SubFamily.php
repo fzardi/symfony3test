@@ -46,4 +46,8 @@ class SubFamily
         $this->name = $name;
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

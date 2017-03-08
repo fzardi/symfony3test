@@ -47,6 +47,19 @@ class Genus
      */
     private $subFamily;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $firstDiscoveredAt;
+
+    /**
+     * @param mixed $firstDiscoveredAt
+     */
+    public function setFirstDiscoveredAt($firstDiscoveredAt)
+    {
+        $this->firstDiscoveredAt = $firstDiscoveredAt;
+    }
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
@@ -150,5 +163,13 @@ class Genus
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstDiscoveredAt()
+    {
+        return $this->firstDiscoveredAt;
     }
 }
