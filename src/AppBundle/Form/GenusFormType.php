@@ -45,7 +45,7 @@ class GenusFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Genus::class
+            'data_class' => Genus::class // se il form non corrisponde a una classe ma a un mix, creare una classe per il form e legarci quella, poi gestire le varie update da controller
         ]);
     }
 
