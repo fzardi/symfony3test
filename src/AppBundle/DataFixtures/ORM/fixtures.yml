@@ -17,3 +17,7 @@ AppBundle\Entity\GenusNote:
         note: <paragraph()>
         createdAt: <dateTimeBetween('-6 months', 'now')>
         genus: '@genus_*'
+
+AppBundle\Entity\User:
+    user_{1..10}:
+        email: fzardi+<current()>@gmail.com
