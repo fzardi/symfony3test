@@ -21,3 +21,5 @@ AppBundle\Entity\GenusNote:
 AppBundle\Entity\User:
     user_{1..10}:
         email: fzardi+<current()>@gmail.com
+        plainPassword: iliketurtles
+        roles: ['ROLE_ADMIN']

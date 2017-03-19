@@ -23,7 +23,7 @@
             <ul class="navi">
                 <li class="search"><a href="#" class="js-header-search-toggle"><i class="fa fa-search"></i></a></li>
                 {% if is_granted('ROLE_USER') %}
-                    <li><a href="{{ path('security_logout') }}">Logout</a></li>
+                    <li>Welcome {{ app.user ? app.user.email : 'Aquanauts' }} <a href="{{ path('security_logout') }}">Logout</a></li>
                 {% else %}
                     <li><a href="{{ path('security_login') }}">Login</a></li>
                 {% endif %}

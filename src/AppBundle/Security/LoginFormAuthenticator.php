@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -32,15 +33,21 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @var RouterInterface
      */
     private $router;
+    /**
+     * @var UserPasswordEncoder
+     */
+    private $userPasswordEncoder;
 
     public function __construct(
         FormFactoryInterface $formFactory,
         EntityManager $em,
-        RouterInterface $router
+        RouterInterface $router,
+        UserPasswordEncoder $userPasswordEncoder
     ) {
         $this->formFactory = $formFactory;
         $this->em = $em;
         $this->router = $router;
+        $this->userPasswordEncoder = $userPasswordEncoder;
     }
 
     /**
@@ -60,7 +67,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
 
         if (!$targetPath) {
-            $targetPath = $this->router->generate('genus_show');
+            $targetPath = $this->router->generate('app_genus_list');
         }
 
         return new RedirectResponse($targetPath);
@@ -152,7 +159,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
-        if ($credentials['_password'] == 'iliketurtles') {
+        if ($this->userPasswordEncoder->isPasswordValid($user, $credentials['_password'])) {
             return true;
         }
         return false;
