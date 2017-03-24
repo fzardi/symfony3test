@@ -24,3 +24,8 @@ services:
         autowire: true
         tags:
           - { name: doctrine.event_subscriber }
+
+    genus_voter:
+        class: AppBundle\Security\GenusVoter
+        tags:
+            - { name: security.voter }

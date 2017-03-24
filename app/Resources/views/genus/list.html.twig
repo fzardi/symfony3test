@@ -22,6 +22,11 @@
                 <td>{{ genus.updatedAt|date('Y-m-d') }}</td>
                 <td>
                     <a href="{{ path('admin_genus_edit', {'id': genus.id}) }}" class="btn btn-xs btn-success"><span class="fa fa-pencil"></span></a>
+                    {% if is_granted('GENUS_DELETE', genus) %}
+                        <a href="{{ path('admin_genus_delete', {'id': genus.id}) }}" class="btn btn-xs btn-danger"><span class="fa fa-trash"></span></a>
+                    {% else %}
+                        <a href="javascript:;" class="btn btn-xs btn-danger" disabled=""><span class="fa fa-trash"></span></a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

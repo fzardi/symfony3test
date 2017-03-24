@@ -1,13 +1,15 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Web;
 
 use AppBundle\Entity\Genus;
 use AppBundle\Form\GenusFormType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Security("is_granted('ROLE_MANAGE_GENUS')")
@@ -18,7 +20,7 @@ class GenusAdminController extends Controller
     /**
      * @Route("/genus/new", name="admin_genus_new")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      * @ Security("is_granted('ROLE_ADMIN')") fatto a livello di controller
      */
     public function newAction(Request $request)
@@ -57,7 +59,7 @@ class GenusAdminController extends Controller
      * @Route("/genus/{id}/edit", name="admin_genus_edit")
      * @param Request $request
      * @param Genus $genus
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function editAction(Request $request, Genus $genus)
     {
@@ -80,5 +82,28 @@ class GenusAdminController extends Controller
         return $this->render('admin/genus/edit.html.twig', [
             'genusForm' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/genus/{id}/delete", name="admin_genus_delete")
+     * @param Genus $genus
+     * @return Response
+     */
+    public function deleteAction(Genus $genus)
+    {
+        if (!$this->isGranted('GENUS_DELETE', $genus)) {
+            throw $this->createAccessDeniedException('NO!');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $genusNotesRepository = $em->getRepository('AppBundle:GenusNote');
+        $notes = $genusNotesRepository->findBy(['genus' => $genus]);
+        foreach ($notes as $note) {
+            $em->remove($note);
+        }
+        $em->remove($genus);
+        $em->flush();
+        $this->addFlash('success', 'Genus deleted!');
+        return $this->redirectToRoute('app_genus_list');
     }
 }

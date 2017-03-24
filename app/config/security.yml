@@ -32,7 +32,7 @@ security:
             logout:
                 path: /logout
 
-            # per impersonare altri utenti: ?_switch_user=username e per tornare indietro ?_switch_user=_exit (aggiungere ROLE_ALLOWED_TO_SWITCH)
+            # per impersonare altri utenti: ?_switch_user=username e per tornare indietro ?_switch_user=_exit (aggiungere ROLE_ALLOWED_TO_SWITCH allo user)
             switch_user: ~
 
     encoders:

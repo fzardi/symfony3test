@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Web;
 
 use AppBundle\Form\LoginForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
