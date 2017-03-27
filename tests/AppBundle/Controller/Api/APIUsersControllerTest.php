@@ -2,39 +2,17 @@
 
 namespace AppBundle\Controller\Api;
 
-use GuzzleHttp\Client;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\lib\APITestCase;
 
-class APIUsersControllerTest extends TestCase
+class APIUsersControllerTest extends APITestCase
 {
-    private static $staticClient;
-    /**
-     * @var Client
-     */
-    protected $client;
-
-    public static function setUpBeforeClass()
-    {
-        self::$staticClient = new Client([
-            'base_url' => 'http://localhost:8000',
-            'defaults' => [
-                'exceptions' => false
-            ]
-        ]);
-    }
-
-    protected function setUp()
-    {
-        $this->client = self::$staticClient;
-    }
-
-    public function test_deleteAction()
-    {
-        $response = $this->client->delete('/api/users/fzardi+666@gmail.com');
-
-        $this->assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
-    }
+//    public function test_deleteAction()
+//    {
+//        $response = $this->client->delete('/api/users/fzardi+666@gmail.com');
+//
+//        $this->assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
+//    }
 
     public function test_newAction()
     {
@@ -56,12 +34,9 @@ class APIUsersControllerTest extends TestCase
                 '/api/users/%s',
                 $email
             ),
-            $response->getHeader('Location')
+            $response->getHeader('Location')[0]
         );
-    }
 
-    public function test_showAction()
-    {
         $response = $this->client->get('/api/users/fzardi+666@gmail.com');
 
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());

@@ -16,6 +16,7 @@ class APIUsersController extends Controller
     /**
      * @Route("/api/users", name="api_users_new")
      * @Method("POST")
+     * @param Request $request
      * @return Response
      */
     public function newAction(Request $request)
