@@ -9,10 +9,8 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Psr\Http\Message\ResponseInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\VarDumper\VarDumper;
 
 class APITestCase extends KernelTestCase
 {
@@ -32,9 +30,10 @@ class APITestCase extends KernelTestCase
 // Add the history middleware to the handler stack.
         $stack->push($history);
 
+        $baseUrl = getenv('TEST_BASE_URL');
         self::$staticClient = new Client([
             'handler' => $stack,
-            'base_uri' => 'http://localhost:8000',
+            'base_uri' => $baseUrl,
             'defaults' => [
                 'exceptions' => false
             ]
@@ -127,5 +126,12 @@ class APITestCase extends KernelTestCase
             $this->output = new ConsoleOutput();
         }
         $this->output->writeln($string);
+    }
+
+    protected function getEntityManager()
+    {
+        return self::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
     }
 }
